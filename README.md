@@ -1,7 +1,15 @@
+# TODO
+
+- [ ] Create user
+- [ ] Create, update todo_list
+- [ ] Create, update todo_item
+- [ ] Uncomment `before_action :authenticate_user!` in `app/controllers/application_controller.rb`
+
+
 # Guide
 
 ## Setup Gemfile
-  - Check `Gemfile`, remove gems you're not ging to use.
+  - Check `Gemfile`, remove gems you're not going to use.
   
 ## Use PostgreSQL
   
@@ -196,12 +204,3 @@
   $ heroku open # Open your app hosted on heroku
   $ heroku logs # Check logs
   ```
-
-
-
-# TODO
-
-- [ ] Create user
-- [ ] Create, update todo_list
-- [ ] Create, update todo_item
-- [ ] Uncomment `before_action :authenticate_user!` in `app/controllers/application_controller.rb`
