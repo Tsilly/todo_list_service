@@ -1,0 +1,18 @@
+source 'https://rubygems.org'
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+
+ruby '2.6.1'
+gem 'bootsnap', '>= 1.1.0', require: false
+gem 'dotenv', '~> 2.7', '>= 2.7.2'
+gem 'jbuilder', '~> 2.5'
+gem 'listen', '~> 3.1', '>= 3.1.5'
+gem 'pg', '~> 0.18.4'
+gem 'puma', '~> 3.11'
+gem 'rails', '~> 5.2.3'
+
+group :development, :test do
+  gem 'byebug', '~> 11.0', '>= 11.0.1'
+  gem 'rspec-rails', '~> 3.8', '>= 3.8.2'
+  gem 'rubocop-rails', '~> 2.0', '>= 2.0.1'
+  gem 'shoulda-matchers', '~> 4.1'
+end
