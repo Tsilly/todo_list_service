@@ -10,9 +10,42 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
-
+ActiveRecord::Schema.define(version: 20_190_622_194_651) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension 'plpgsql'
 
+  create_table 'todo_items', force: :cascade do |t|
+    t.integer 'todo_list_id'
+    t.string 'content'
+    t.datetime 'completed_at'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index %w[todo_list_id content], name: 'index_todo_items_on_todo_list_id_and_content'
+    t.index ['todo_list_id'], name: 'index_todo_items_on_todo_list_id'
+  end
+
+  create_table 'todo_lists', force: :cascade do |t|
+    t.bigint 'user_id'
+    t.string 'title'
+    t.text 'description'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index %w[title description], name: 'index_todo_lists_on_title_and_description'
+    t.index ['user_id'], name: 'index_todo_lists_on_user_id'
+  end
+
+  create_table 'users', force: :cascade do |t|
+    t.string 'email', default: '', null: false
+    t.string 'encrypted_password', default: '', null: false
+    t.string 'reset_password_token'
+    t.datetime 'reset_password_sent_at'
+    t.datetime 'remember_created_at'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['email'], name: 'index_users_on_email', unique: true
+    t.index ['reset_password_token'], name: 'index_users_on_reset_password_token', unique: true
+  end
+
+  add_foreign_key 'todo_items', 'todo_lists'
+  add_foreign_key 'todo_lists', 'users'
 end
