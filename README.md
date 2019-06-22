@@ -1,21 +1,28 @@
 # Guide
 
-- Setup Gemfile
-  1. Check `Gemfile`
+## Setup Gemfile
+  - Check `Gemfile`, remove gems you're not ging to use.
+
+## User Bundler -v 1.17.3
+  1. In terminal, run `$ gem install bundler -v 1.17.3`
+  1. In your `Gemfile.lock`, scroll down to the bottom and change the bundler version
+      ```
+      BUNDLED WITH
+      1.17.3
+      ```
   
-- Use PostgreSQL
+## Use PostgreSQL
   
   1. Paste `gem 'pg', '~> 0.18.4'` to `Gemfile` 
-  1. Setup `database.yml`
-  1. Run `$ bundle install`
-   
-- Use `dotenv`
-  
-  1. Paste `gem 'dotenv', '~> 2.7', '>= 2.7.2'` to Gemfile
-  2. Create a `.env` file by running `$ touch .env` in your terminal
+  2. Setup `database.yml`
   3. Run `$ bundle install`
+   ## Use `dotenv`
+  
+  4. Paste `gem 'dotenv', '~> 2.7', '>= 2.7.2'` to Gemfile
+  5. Create a `.env` file by running `$ touch .env` in your terminal
+  6. Run `$ bundle install`
 
-- Create a Procfile
+## Create a Procfile
 
   1. In your terminal, run `$ touch Procfile`
   1. Paste `web: bundle exec puma -t 5:5 -p ${PORT:-3000} -e ${RACK_ENV:-development}` to the `Porcfile` you just created.
@@ -28,7 +35,7 @@
   1. Add `.env` to your `.gitignore` file
   1. Create another file called `.env_example` by running `touch .env_example` in your terminal 
 
-- RSpec for Test
+## RSpec for Test
   
   1. Add the following gems to your `Gemfile`
 
@@ -43,18 +50,19 @@
   1. Run `$ rails generate rspec:install`
   1. Change the setup for rspec. Check `spec/rails_helper.rb` and `spec/rails_helper.rb`
 
-- Rubocop:
+## Rubocop:
   
   - Add this line `gem 'rubocop-rails', '~> 2.0', '>= 2.0.1'` to the `group :development, :test` block
   - Run `$ rubocop --auto-gen-config` in terminal to create a `.rubocop_todo.yml`
 
-- Deploy to Heroku
+## Deploy to Heroku
   `https://devcenter.heroku.com/articles/getting-started-with-rails5`
 
--
 
+## Useful commands
 
-- Useful commands
-
-  1. `$ bundle exec rspec`
-  2. `$ bundle exec rubocop`
+  ```
+  $ bundle exec rspec
+  $ bundle exec rubocop
+  $ git push heroku master # Push commits to heroku
+  ```
