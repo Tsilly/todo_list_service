@@ -2,14 +2,6 @@
 
 ## Setup Gemfile
   - Check `Gemfile`, remove gems you're not ging to use.
-
-## User Bundler -v 1.17.3
-  1. In terminal, run `$ gem install bundler -v 1.17.3`
-  1. In your `Gemfile.lock`, scroll down to the bottom and change the bundler version
-      ```
-      BUNDLED WITH
-      1.17.3
-      ```
   
 ## Use PostgreSQL
   
@@ -19,7 +11,7 @@
    ## Use `dotenv`
   
   4. Paste `gem 'dotenv', '~> 2.7', '>= 2.7.2'` to Gemfile
-  5. Create a `.env` file by running `$ touch .env` in your terminal
+  5. Create a `.env` file by running `$ touch .env` in your 1erminal
   6. Run `$ bundle install`
 
 ## Create a Procfile
@@ -35,8 +27,10 @@
   1. Add `.env` to your `.gitignore` file
   1. Create another file called `.env_example` by running `touch .env_example` in your terminal 
 
-## RSpec for Test
+## Test
   
+### Rspec
+
   1. Add the following gems to your `Gemfile`
 
       ```
@@ -50,19 +44,75 @@
   1. Run `$ rails generate rspec:install`
   1. Change the setup for rspec. Check `spec/rails_helper.rb` and `spec/rails_helper.rb`
 
+### Prepare fake data
+
+  1. Add these 2 gems to Gemfile
+
+      ```
+      group :development, :test do
+        gem 'factory_bot_rails', '~> 5.0', '>= 5.0.2'
+        gem 'faker', '~> 1.9', '>= 1.9.4'
+      end
+      ```
+  2. Run `$ bundle install`
+
+
 ## Rubocop:
   
-  - Add this line `gem 'rubocop-rails', '~> 2.0', '>= 2.0.1'` to the `group :development, :test` block
+  - Add the `rubocop-rails` to your Gemfile, and run `$ bundle install`
+      ```
+      ...
+      group :development, :test do
+        gem 'rubocop-rails', '~> 2.0', '>= 2.0.1'
+      end
+      ...
+      ```
+
   - Run `$ rubocop --auto-gen-config` in terminal to create a `.rubocop_todo.yml`
 
 ## Deploy to Heroku
-  `https://devcenter.heroku.com/articles/getting-started-with-rails5`
+  - Check this guide: `https://devcenter.heroku.com/articles/getting-started-with-rails5`
 
+  - If you see the following error while deploying to heroku
+
+    ```
+    You must use Bundler 2 or greater with this lockfile.
+    ```
+    You can set your Heroku app to use that buildpack, by running `$ heroku buildpacks:set https://github.com/bundler/heroku-buildpack-bundler2` in terminal. (ref: https://github.com/bundler/bundler/issues/6784)
+
+
+## GraphQL
+  - In your Gemfile, add 2 gems:
+
+    ```
+    ...
+    gem 'graphql', '~> 1.9', '>= 1.9.6'
+    group :development do
+      gem 'graphiql-rails'
+    end
+    ...
+
+    ```
+
+  - Run `$ bundle install`
+  - Run the generator: `$ rails generate graphql:install`
+
+
+## Devise
+  1. Put `gem 'devise', '~> 4.6', '>= 4.6.2'` to your gemfile, and run `$ bundle install`
+  2. Run the generator: `$ rails generate devise:install`
+  3. Generate an User model: `$ rails generate devise User`
+  4. Run migration: `$rails db:migrate`
+  5. Open `app/controllers/application_controller.rb` and insert this line: `before_action :authenticate_user!`
+
+## 
 
 ## Useful commands
 
   ```
   $ bundle exec rspec
   $ bundle exec rubocop
-  $ git push heroku master # Push commits to heroku
+  $ git push heroku master # Push commits to heroku master branch
+  $ heroku open # Open your app hosted on heroku
+  $ heroku logs # Check logs
   ```
