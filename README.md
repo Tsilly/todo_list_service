@@ -73,9 +73,6 @@
     end
     ```
 
-### Controller test with devise
-  Ref: https://github.com/plataformatec/devise/wiki/How-To:-Test-controllers-with-Rails-(and-RSpec)
-
 
 ## Rubocop:
   
@@ -186,14 +183,19 @@
   _[...coming soon]_
 
 
-## Devise
+## (Deprecated) Devise (Deprecated)
+
+  _Note: This project does not use devise anymore._
+
+### Setup
   - Put `gem 'devise', '~> 4.6', '>= 4.6.2'` to your gemfile, and run `$ bundle install`
   - Run the generator: `$ rails generate devise:install`
   - Generate an User model: `$ rails generate devise User`
   - Run migration: `$rails db:migrate`
   - Open `app/controllers/application_controller.rb` and insert this line: `before_action :authenticate_user!`
 
-## 
+### Controller test with devise
+  Ref: https://github.com/plataformatec/devise/wiki/How-To:-Test-controllers-with-Rails-(and-RSpec) 
 
 ## Useful commands
 

@@ -2,8 +2,9 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.1'
+gem 'bcrypt', '~> 3.1', '>= 3.1.13'
 gem 'bootsnap', '>= 1.1.0', require: false
-gem 'devise', '~> 4.6', '>= 4.6.2'
+gem 'bundler', '2.0.1'
 gem 'dotenv', '~> 2.7', '>= 2.7.2'
 gem 'graphql', '~> 1.9', '>= 1.9.6'
 gem 'jbuilder', '~> 2.5'
