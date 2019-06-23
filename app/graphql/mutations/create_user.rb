@@ -20,12 +20,12 @@ module Mutations
       if user.save!
         {
           user: user,
-          errors: [],
+          errors: []
         }
       else
         {
           user: user,
-          errors: user.errors.full_messages,
+          errors: user.errors.full_messages
         }
       end
     end
