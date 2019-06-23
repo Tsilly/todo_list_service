@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 20_190_622_194_651) do
     t.string 'password_digest'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
-    t.index %w[name email], name: 'index_users_on_name_and_email'
+    t.index %w[name email], name: 'index_users_on_name_and_email', unique: true
   end
 
   add_foreign_key 'todo_items', 'todo_lists'
