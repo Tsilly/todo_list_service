@@ -172,7 +172,6 @@
   }
   ```
 
-
 ### Create User
   _[...coming soon]_
 
@@ -181,6 +180,9 @@
 
 ### Create TodoItem
   _[...coming soon]_
+
+### React
+  _ref: https://medium.com/@taylorwu/learning-graphql-with-rails-5f44b1aac0db_
 
 
 ## (Deprecated) Devise (Deprecated)
