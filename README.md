@@ -3,7 +3,7 @@
 - [ ] Create user
 - [ ] Create, update todo_list
 - [ ] Create, update todo_item
-- [ ] Uncomment `before_action :authenticate_user!` in `app/controllers/application_controller.rb`
+- [ ] Add CORS to Guide
 
 
 # Guide
@@ -150,7 +150,7 @@
     }
     ```
 
-### Query user with todo_lists and todo_items
+### Query users with todo_lists and todo_items
   - Create some fake users with todo_lists and todo_items:
   - In the GraphQL IDE, run this query:
 
@@ -172,11 +172,129 @@
   }
   ```
 
-### Create User
-  _[...coming soon]_
+### Query single user with todolists
 
-### Create TodoList
-  _[...coming soon]_
+  ```
+  query user {
+    user(id: 1) {
+      name
+      email
+      todoLists {
+        title
+      }
+    }
+  }
+  ```
+
+### Create User
+  - Set mutation: `app/graphql/mutations/create_todo_list.rb`
+  - Add the `Mutations::CreateUser` to **MutationType** (`app/graphql/types/mutation_type.rb`):
+    ```
+      class MutationType < Types::BaseObject
+        ...
+        field :create_user, mutation: Mutations::CreateUser
+        ...
+      end
+    ```
+
+  In GraphQL IDE, run:
+
+  ```
+    mutation {
+      createUser (
+        input: {
+          name: "user1",
+          authAttributes: {
+            email: "user1@example.com",
+            password: "password"
+          }
+        }
+      ) {
+        user {
+          id
+          name
+          emal
+        }
+      }  
+    }
+  ```
+
+  The right panel will return the `id`, `name`, and `email` of the user you just created.
+
+### Signin
+  - Create a mutation for **SignInUser**: `app/graphql/mutations/sign_in_user.rb`
+  - Add the follow code to **GraphqlController** (`app/controllers/graphql_controller.rb`)
+
+  ```
+    class GraphqlController < ApplicationController
+      def execute
+        ...
+
+        context = {
+          session: session,
+          current_user: current_user
+        }
+        ...
+      end
+
+      ...
+
+      private
+
+      def current_user
+        return unless session[:token]
+
+        crypt = ActiveSupport::MessageEncryptor.new(Rails.application.credentials.secret_key_base.byteslice(0..31))
+        token = crypt.decrypt_and_verify session[:token]
+        user_id = token.gsub('user-id:', '').to_i
+        User.find_by id: user_id
+      rescue ActiveSupport::MessageVerifier::InvalidSignature
+        nil
+      end
+      ...
+    end
+  ```
+
+  - In GraphQL IDE, run
+
+  ```
+  mutation signInUser {
+    signInUser (
+      input: {
+        authAttributes: {
+          email: "user1@example.com",
+          password: "password"
+        }
+      }
+    ) {
+      user {
+        name
+        email
+      }
+      token
+    }  
+  }
+  ```
+  The right panel should show the `user object` and `token`.
+
+
+### Create TodoList associated to the current user
+  - Add a **CreateTodoList** class, e.g. `app/graphql/mutations/create_todo_list.rb`
+  - Add **Mutations::CreateTodoList** to the **MutationType**
+
+  ```
+  module Types
+    class MutationType < Types::BaseObject
+      ...
+      field :create_todo_list, mutation: Mutations::CreateTodoList
+      ...
+    end
+  end
+
+  ```
+  - run mutation `signInUser` 
+  - run mutation `createTodoList`
+
 
 ### Create TodoItem
   _[...coming soon]_

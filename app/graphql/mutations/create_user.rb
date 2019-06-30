@@ -17,17 +17,10 @@ module Mutations
         password: auth_attributes[:password]
       )
 
-      if user.save!
-        {
-          user: user,
-          errors: []
-        }
-      else
-        {
-          user: user,
-          errors: user.errors.full_messages
-        }
-      end
+      response = {}
+      response[:errors] = user.save! ? [] : user.errors.full_messages
+      response[:user] = user
+      response
     end
   end
 end
